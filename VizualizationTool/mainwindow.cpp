@@ -45,8 +45,8 @@ void MainWindow::clickedSlot()
     txt->setText(fileName);
 
     PassThroughFiltercpp* obj = new PassThroughFiltercpp();
-    obj->ApplyFilter(fileName.toUtf8().constData());
-    //obj->SearchCircle(fileName.toUtf8().constData(), 0.5f);
+    //obj->ApplyFilter(fileName.toUtf8().constData());
+    obj->SearchCircle(fileName.toUtf8().constData(), 0.5f);
     //obj->SearchVoxel(fileName.toUtf8().constData(), 0.5f);
     //obj->SearchKNearest(fileName.toUtf8().constData(), 0.5f, 2000);
 }

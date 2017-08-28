@@ -11,6 +11,8 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/cloud_viewer.h>
 #include "passthroughfiltercpp.h"
+#include "neighbourpoints.h"
+#include "neighboursearch.h"
 
 PassThroughFiltercpp::PassThroughFiltercpp()
 {
@@ -27,6 +29,18 @@ void PassThroughFiltercpp::SearchCircle(std::string fileName, float radius )
         return;
       }
 
+      pcl::PointXYZ searchPoint = cloud->points[232459];
+      NeighbourSearch* n =  new NeighbourSearch();
+      NeighbourPoints* neighbour = n->GetRadiusSearchNeighbour(cloud, searchPoint, radius);
+      
+      std::vector<pcl::PointXYZ> points = neighbour->GetNeighbourCloud();
+      for (size_t i = 0; i < points.size (); ++i)
+      {
+            std::cout << "    " << points[i].x
+                      << " "    << points[i].y
+                      << " "    << points[i].z << std::endl;
+
+      }
       /*std::cout << "Loaded "
                 << cloud->width * cloud->height
                 << " data points from some_pcd.pcd with the following fields: "
@@ -37,6 +51,7 @@ void PassThroughFiltercpp::SearchCircle(std::string fileName, float radius )
                   << " "    << cloud->points[i].z << std::endl;
       */
 
+      /*
       float resolution = 128.0f;
       pcl::octree::OctreePointCloudSearch<pcl::PointXYZ> octree (resolution);
 
@@ -86,6 +101,7 @@ void PassThroughFiltercpp::SearchCircle(std::string fileName, float radius )
 
           }
       }
+      */
 }
 
 void PassThroughFiltercpp::SearchVoxel(std::string fileName)
